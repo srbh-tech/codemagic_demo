@@ -1,0 +1,55 @@
+# This file is a basic Codemagic CI/CD workflow configuration.It is designed to build and test a Flutter application for both Android and iOS.Place this file in the root of your Flutter project.workflows:flutter-android-ios-build:name: Flutter Android & iOS Build# Define the environment for the build machine
+environment:
+  # Use a specific Flutter version
+  flutter: stable
+  # Use the latest version of Xcode for iOS builds
+  xcode: latest
+  # Use a specific version of macOS for the build machine
+  instance_type: mac_mini_m2
+
+# Define the scripts to run in the build process
+scripts:
+  # Step 1: Install dependencies
+  - name: Flutter pub get
+    script: |
+      flutter pub get
+
+  # Step 2: Run static analysis and tests
+  - name: Flutter analyze
+    script: |
+      flutter analyze
+  - name: Flutter test
+    script: |
+      flutter test
+
+  # Step 3: Build the Android release
+  - name: Build Android App Bundle
+    script: |
+      flutter build appbundle --release
+
+  # Step 4: Build the iOS release
+  - name: Build iOS IPA
+    script: |
+      flutter build ios --release --no-codesign
+
+# Define the artifacts to save after the build
+artifacts:
+  # Save the Android app bundle
+  - build/app/outputs/bundle/release/app-release.aab
+  # Save the iOS IPA file
+  - build/ios/Runner.ipa
+
+# Define the publishing steps (optional but useful)
+# This section is commented out by default, as it requires
+# specific configuration in Codemagic UI (e.g., signing keys).
+# publishing:
+#   app_store_connect:
+#     auth:
+#       api_key:
+#         id: # You need to set this in Codemagic UI
+#         issuer_id: # You need to set this in Codemagic UI
+#     # Define other publishing settings here (e.g., TestFlight)
+#   google_play:
+#     auth:
+#       json_key_path: # You need to set this in Codemagic UI
+#     # Define other publishing settings here (e.g., internal testing track)

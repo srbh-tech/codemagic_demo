@@ -1,0 +1,30 @@
+# Define the environment for the build machine
+environment:
+  flutter: stable
+  # No need for Xcode on web builds
+
+# Define the scripts to run in the build process
+scripts:
+  # Step 1: Install dependencies
+  - name: Flutter pub get
+    script: |
+      flutter pub get
+
+  # Step 2: Build the web release
+  - name: Build Flutter Web App
+    script: |
+      # The --release flag creates an optimized production build.
+      flutter build web --release
+
+# Define the artifacts to save after the build
+artifacts:
+  # The build output for the web app is located in the `build/web` directory.
+  - build/web
+
+# Define the publishing steps
+# This section is crucial for deploying the static website.
+# It uses Codemagic's built-in hosting feature.
+publishing:
+  codemagic_pages:
+    # The source_dir must point to the directory containing the static web files.
+    source_dir: build/web
