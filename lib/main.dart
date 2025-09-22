@@ -31,8 +31,13 @@ class MyHomePage extends StatelessWidget {
         title: const Text('codemagic demo'),
       ),
       body: const Center(
-        child: Text(
-          'Hello, Codemagic! \n This is a demo app to test Codemagic CI/CD. \n Enjoy!',
+        child: Column(
+          children: [
+            Text(
+              'Hello, Codemagic! \n This is a demo app to test Codemagic CI/CD. \n Enjoy!',
+            ),
+            Text("Saurabh Shrivastava")
+          ],
         ),
       ),
     );
