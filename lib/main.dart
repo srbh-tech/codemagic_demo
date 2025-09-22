@@ -32,7 +32,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: const Center(
         child: Text(
-          'Hello, Codemagic! \n This is a demo app to test Codemagic CI/CD.',
+          'Hello, Codemagic! \n This is a demo app to test Codemagic CI/CD. \n Enjoy!',
         ),
       ),
     );
